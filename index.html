@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exodus 90 Habit Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Exodus 90 Habit Tracker</h1>
+    <p>"Let your light shine before others." – Matthew 5:16</p>
+  </header>
+  
+  <main>
+    <section id="habits">
+      <h2>Today's Habits</h2>
+      <ul>
+        <li onclick="toggleHabit(this)">Morning Prayer</li>
+        <li onclick="toggleHabit(this)">Physical Exercise</li>
+        <li onclick="toggleHabit(this)">Media Fasting</li>
+        <li onclick="toggleHabit(this)">Evening Reflection</li>
+      </ul>
+    </section>
+    
+    <section id="reflection">
+      <h2>Daily Reflection</h2>
+      <p>Take a moment to reflect on your spiritual journey today.</p>
+      <!-- Optionally, add a textarea for note-taking -->
+    </section>
+  </main>
+  
+  <script>
+    function toggleHabit(element) {
+      element.classList.toggle('completed');
+      // Optionally, use localStorage here to save state
+    }
+  </script>
+</body>
+</html>
