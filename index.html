@@ -1,40 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Exodus 90 Habit Tracker</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Exodus 90 Lent Tracker</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header>
-    <h1>Exodus 90 Habit Tracker</h1>
-    <p>"Let your light shine before others." – Matthew 5:16</p>
+    <h1>Exodus 90 Lent Tracker</h1>
+    <p>Grow in prayer, asceticism, and fraternity</p>
   </header>
-  
+
   <main>
     <section id="habits">
-      <h2>Today's Habits</h2>
-      <ul>
-        <li onclick="toggleHabit(this)">Morning Prayer</li>
-        <li onclick="toggleHabit(this)">Physical Exercise</li>
-        <li onclick="toggleHabit(this)">Media Fasting</li>
-        <li onclick="toggleHabit(this)">Evening Reflection</li>
-      </ul>
-    </section>
-    
-    <section id="reflection">
-      <h2>Daily Reflection</h2>
-      <p>Take a moment to reflect on your spiritual journey today.</p>
-      <!-- Optionally, add a textarea for note-taking -->
+      <h2 id="dayTitle">Disciplines for Today</h2>
+      <ul id="habitList"></ul>
     </section>
   </main>
-  
+
+  <footer>
+    <p>“Let your light shine before others.” – Matthew 5:16</p>
+  </footer>
+
   <script>
-    function toggleHabit(element) {
-      element.classList.toggle('completed');
-      // Optionally, use localStorage here to save state
+    /*
+      ------------------------------------------------------------
+      1) Define each habit with an ID and text.
+      2) Map each day of the week (0 = Sunday, 1 = Monday, etc.)
+         to the habits you want displayed on that day.
+      3) Use localStorage to remember which habits are completed
+         for the current date (YYYY-MM-DD).
+      ------------------------------------------------------------
+    */
+
+    // 1) Habit definitions
+    const HABITS = {
+      1: "Lent Reading and Reflection",
+      2: "30 minutes of prayer",
+      3: "No unnecessary phone use",
+      4: "No unnecessary computer use",
+      5: "No unnecessary purchases",
+      6: "Give an additional contribution to the poor (weekly)",
+      7: "Daily Check-in with your anchor",
+      8: "Weekly fraternity meeting",
+      9: "Fast on Wednesday and Friday",
+      10: "No meat Wednesday and Friday",
+      11: "Regular, intense exercise",
+      12: "Celebrate the Lord’s Day"
+    };
+
+    // 2) Habits by day of week (0=Sun, 1=Mon, ..., 6=Sat)
+    // Feel free to adjust these to match your exact schedule!
+    const habitsByDay = {
+      0: [1, 2, 3, 4, 5, 7, 11, 6, 8, 12], // Sunday
+      1: [1, 2, 3, 4, 5, 7, 11],           // Monday
+      2: [1, 2, 3, 4, 5, 7, 11],           // Tuesday
+      3: [1, 2, 3, 4, 5, 7, 9, 10, 11],    // Wednesday
+      4: [1, 2, 3, 4, 5, 7, 11],           // Thursday
+      5: [1, 2, 3, 4, 5, 7, 9, 10, 11],    // Friday
+      6: [1, 2, 3, 4, 5, 7, 11]            // Saturday
+    };
+
+    // Utility: returns today's date in YYYY-MM-DD format
+    function getTodayStr() {
+      const d = new Date();
+      const year = d.getFullYear();
+      const month = String(d.getMonth() + 1).padStart(2, "0");
+      const day = String(d.getDate()).padStart(2, "0");
+      return `${year}-${month}-${day}`;
     }
+
+    // Retrieve completed habits for today from localStorage
+    function getCompletedHabitsForToday() {
+      const todayKey = getTodayStr();
+      return JSON.parse(localStorage.getItem(todayKey)) || [];
+    }
+
+    // Save updated completed habits for today to localStorage
+    function saveCompletedHabitsForToday(completedArray) {
+      const todayKey = getTodayStr();
+      localStorage.setItem(todayKey, JSON.stringify(completedArray));
+    }
+
+    // Toggles the completed state of a habit in localStorage
+    function toggleHabit(habitId, element) {
+      let completedHabits = getCompletedHabitsForToday();
+
+      if (completedHabits.includes(habitId)) {
+        // If already completed, remove it
+        completedHabits = completedHabits.filter((id) => id !== habitId);
+        element.classList.remove("completed");
+      } else {
+        // If not completed, add it
+        completedHabits.push(habitId);
+        element.classList.add("completed");
+      }
+
+      saveCompletedHabitsForToday(completedHabits);
+    }
+
+    // 3) Dynamically generate today's habits
+    const today = new Date();
+    const dayOfWeek = today.getDay(); // 0-6
+    const todaysHabits = habitsByDay[dayOfWeek] || [];
+    const habitListEl = document.getElementById("habitList");
+
+    // Get any completed habits for today
+    const completedHabits = getCompletedHabitsForToday();
+
+    // Build the list
+    todaysHabits.forEach((habitId) => {
+      const li = document.createElement("li");
+      li.textContent = HABITS[habitId] || "Unknown Habit";
+
+      // If it's already completed, mark it as such
+      if (completedHabits.includes(habitId)) {
+        li.classList.add("completed");
+      }
+
+      // Toggle completion on click
+      li.addEventListener("click", () => toggleHabit(habitId, li));
+      habitListEl.appendChild(li);
+    });
+
+    // Update the heading to reflect the day
+    const dayNames = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday"
+    ];
+    document.getElementById("dayTitle").textContent =
+      `Disciplines for ${dayNames[dayOfWeek]}`;
   </script>
 </body>
 </html>

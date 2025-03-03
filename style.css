@@ -1,51 +1,95 @@
 /* style.css */
-body {
-  font-family: 'Georgia', serif;
-  background-color: #f8f9fa;
-  color: #333;
-  margin: 0;
-  padding: 0;
-}
 
-header {
-  background-color: #e0e0e0;
-  padding: 20px;
-  text-align: center;
-  border-bottom: 2px solid #ccc;
-}
-
-h1 {
-  margin: 0;
-  font-size: 2em;
-}
-
-main {
-  padding: 20px;
-}
-
-section {
-  margin-bottom: 30px;
-}
-
-ul {
-  list-style: none;
-  padding: 0;
-}
-
-li {
-  padding: 10px;
-  margin: 5px 0;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-li:hover {
-  background-color: #f0f0f0;
-}
-
-.completed {
-  text-decoration: line-through;
-  color: #888;
-}
+/* Reset some default margins/padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Body: white background, dark text */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333333;
+  }
+  
+  /* Header: orange background, white text */
+  header {
+    background-color: #ff5f00; /* Vibrant orange */
+    color: #ffffff;
+    text-align: center;
+    padding: 2rem 1rem;
+  }
+  
+  header h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  header p {
+    font-size: 1rem;
+    margin-top: 0;
+  }
+  
+  /* Main content area */
+  main {
+    padding: 2rem 1rem;
+  }
+  
+  /* Section for habits: place on a purple background card, if desired */
+  #habits {
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #3f026b; /* Deep purple */
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+  
+  #habits h2 {
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  /* The habit list */
+  #habitList {
+    list-style: none;
+    padding: 0;
+  }
+  
+  /* Each habit item: white background, dark text */
+  #habitList li {
+    background-color: #ffffff;
+    color: #333333;
+    margin-bottom: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  #habitList li:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Completed habit: strikethrough, faded text */
+  .completed {
+    text-decoration: line-through;
+    color: #888888;
+  }
+  
+  /* Footer: small purple strip with white text */
+  footer {
+    background-color: #3f026b;
+    color: #ffffff;
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+  }
+  
+  footer p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  
